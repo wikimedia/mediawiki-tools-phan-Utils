@@ -102,9 +102,10 @@ trait Utils {
 	 *
 	 * @param string $channel
 	 * @param string $msg debug message
+	 * @param string|null $caller
 	 */
-	protected function log( string $channel, string $msg ) : void {
-		$caller = debug_backtrace()[1]['function'];
+	protected function log( string $channel, string $msg, string $caller = null ) : void {
+		$caller = $caller ?? debug_backtrace()[1]['function'];
 		if ( $this->debugOutput === null ) {
 			$errorOutput = getenv( "PHAN_DEBUG" );
 			if ( $errorOutput && $errorOutput !== '-' ) {
