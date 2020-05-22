@@ -8,6 +8,24 @@ This code was originally written as part of MediaWiki's [taint-check].
 
     $ `composer require mediawiki/phan-utils`
 
+### Usage
+Add `use MediaWikiPhanUtils\MediaWikiPhanUtils` to the visitor class. Note that the implementing class
+MUST have the following properties:
+```
+/**
+ * @property \Phan\Language\Context $context
+ * @property \Phan\CodeBase $code_base
+ */
+```
+
+Additionally, the class SHOULD implement the following method:
+
+```
+protected function getLogChannel() : string
+```
+
+to specify the name of the channel used in debug logs.
+
 ### Environment variables
 
 You can use the `PHAN_DEBUG` variable to print debug information. The variable can take

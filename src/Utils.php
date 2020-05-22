@@ -16,6 +16,7 @@ use Phan\Language\Type\ClosureType;
 /**
  * @property-read Context $context
  * @property-read \Phan\CodeBase $code_base
+ * @method string getLogChannel()
  */
 trait Utils {
 
@@ -100,11 +101,10 @@ trait Utils {
 	/**
 	 * Output a debug message to stdout.
 	 *
-	 * @param string $channel
 	 * @param string $msg debug message
 	 * @param string|null $caller
 	 */
-	protected function log( string $channel, string $msg, string $caller = null ) : void {
+	protected function log( string $msg, string $caller = null ) : void {
 		$caller = $caller ?? debug_backtrace()[1]['function'];
 		if ( $this->debugOutput === null ) {
 			$errorOutput = getenv( "PHAN_DEBUG" );
@@ -116,6 +116,7 @@ trait Utils {
 				$this->debugOutput = false;
 			}
 		}
+		$channel = method_exists( $this, 'getLogChannel' ) ? $this->getLogChannel() : '(unknown)';
 		$line = "$channel - $caller \33[1m" . $this->dbgInfo() . " \33[0m$msg\n";
 		if ( $this->debugOutput && $this->debugOutput !== '-' ) {
 			fwrite(
