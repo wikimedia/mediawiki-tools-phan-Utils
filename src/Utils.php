@@ -33,7 +33,7 @@ trait Utils {
 	 * @param FunctionInterface $func
 	 * @param int $maxDepth
 	 */
-	protected function analyzeFunc( FunctionInterface $func, int $maxDepth ) : void {
+	protected function analyzeFunc( FunctionInterface $func, int $maxDepth ): void {
 		static $depth = 0;
 		$node = $func->getNode();
 		if ( !$node ) {
@@ -77,7 +77,7 @@ trait Utils {
 	 * @param Node $node
 	 * @return ContextNode
 	 */
-	protected function getCtxN( Node $node ) : ContextNode {
+	protected function getCtxN( Node $node ): ContextNode {
 		return new ContextNode(
 			$this->code_base,
 			$this->context,
@@ -91,7 +91,7 @@ trait Utils {
 	 * @param Context|null $context Override the context to make debug info for
 	 * @return string path/to/file +linenumber
 	 */
-	protected function dbgInfo( Context $context = null ) : string {
+	protected function dbgInfo( Context $context = null ): string {
 		$ctx = $context ?: $this->context;
 		// Using a + instead of : so that I can just copy and paste
 		// into a vim command line.
@@ -104,7 +104,7 @@ trait Utils {
 	 * @param string $msg debug message
 	 * @param string|null $caller
 	 */
-	protected function log( string $msg, string $caller = null ) : void {
+	protected function log( string $msg, string $caller = null ): void {
 		$caller = $caller ?? debug_backtrace()[1]['function'];
 		if ( $this->debugOutput === null ) {
 			$errorOutput = getenv( "PHAN_DEBUG" );
