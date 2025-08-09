@@ -91,7 +91,7 @@ trait Utils {
 	 * @param Context|null $context Override the context to make debug info for
 	 * @return string path/to/file +linenumber
 	 */
-	protected function dbgInfo( Context $context = null ): string {
+	protected function dbgInfo( ?Context $context = null ): string {
 		$ctx = $context ?: $this->context;
 		// Using a + instead of : so that I can just copy and paste
 		// into a vim command line.
@@ -104,8 +104,8 @@ trait Utils {
 	 * @param string $msg debug message
 	 * @param string|null $caller
 	 */
-	protected function log( string $msg, string $caller = null ): void {
-		$caller = $caller ?? debug_backtrace()[1]['function'];
+	protected function log( string $msg, ?string $caller = null ): void {
+		$caller ??= debug_backtrace()[1]['function'];
 		if ( $this->debugOutput === null ) {
 			$errorOutput = getenv( "PHAN_DEBUG" );
 			if ( $errorOutput && $errorOutput !== '-' ) {
